@@ -1,0 +1,52 @@
+## Attack Overview
+
+This analysis simulated a targeted attack on VSI systems by JobeCorp. Logs were provided from a Windows server and an Apache web server. The goal was to identify attacker behavior, unusual log patterns, and develop Splunk-based dashboards and alerts for early detection.
+
+---
+
+## Windows Server Findings
+
+- **Event ID 4624 (Successful Logons)**: Sharp increase in successful logins, including 1,757 from `user_k` and 1,769 from `user_a`.
+- **Event ID 4726 (Account Deletions)**: 17 user deletions observed within the time frame, indicating compromise.
+- **Event ID 4672 (Special Privileges Assigned)**: Multiple privilege escalations.
+- **Audit Log Clears**: Over a dozen clears detected, suggesting anti-forensic activity.
+- **Noise Reduction**: Alert thresholds adjusted from 10/hr to 20/hr to minimize false positives.
+
+---
+
+## Apache Server Findings
+
+- **HTTP POST Spike**: 1,415 POST requests recorded in a single hour.
+- **Suspicious URI Access**: Over 1,200 hits to `/VSI_Account_logon.php`.
+- **Geographic Activity**: Sudden influx of traffic from Kiev, Ukraine (439 requests).
+- **404 Errors**: Over 600 404 responses indicate directory brute-forcing.
+- **Top Referrer**: semicomplete.com accounted for 29% of log volume.
+- **Noise Reduction**: POST alert threshold raised from 10/hr to 50/hr for precision.
+
+---
+
+## Alert Recommendations
+
+| Alert Type                 | Initial Threshold | Tuned Threshold |
+|---------------------------|-------------------|-----------------|
+| Excessive Logons          | 10/hr             | 40/hr           |
+| Failed Logons             | 10/hr             | 20/hr           |
+| User Deletions            | 5/hr              | 5/hr            |
+| POST Method Spike         | 10/hr             | 50/hr           |
+| Foreign IP Requests       | 10/hr             | 100/hr          |
+
+---
+
+## Dashboards Built
+
+- **Windows**: Login Event Breakdown, Signature Trends, Severity Spike
+- **Apache**: HTTP Method Spike, Referrer Breakdown, Geographic Spike Map
+
+---
+
+## Final Outcome
+
+- Attack activity detected and documented
+- Visual dashboards created for SOC teams
+- Alerting logic refined to minimize false positives while retaining accuracy
+- Recommendations provided for MFA, geofencing, and rate-limiting sensitive endpoints
