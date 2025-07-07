@@ -84,4 +84,4 @@ This project simulates a real-world security operations task for Virtual Space I
 ## Files Included
 
 - `project3-presentation.pdf` – Full attack timeline, dashboards, alerts, and recommendations
-- `review-summary.md` – Optional summary of attack findings and alert effectiveness
+- `review-summary.md` – Summary of attack findings and alert effectiveness
