@@ -1,4 +1,4 @@
-# Windows and Apache Log Analysis
+# Windows and Apache Log Analysis - Project 3
 
 **Author**: Andrew Boschini  
 **Role**: Security Analyst  
